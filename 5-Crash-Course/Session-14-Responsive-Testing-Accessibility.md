@@ -25,6 +25,27 @@ We're NOT building anything new. Instead, we're doing what professional develope
 
 **Our website so far has:** Navbar, Hero Carousel, About, Faculty Cards, Timetable, Gallery, Contact Form, Login Modal, Countdown Timer, Dark Mode Toggle, Back-to-Top Button, FAQ Accordion, Footer — split across `index.html`, `script.js`, and `custom.css`.
 
+### 🆕 New Concepts Introduced in This Session
+
+Although today is a testing/QA day, we encounter several **new HTML attributes, CSS techniques, and deprecated elements** for the first time:
+
+| # | Tag / Class / Property | What It Does | Real-World Analogy |
+|---|----------------------|-------------|-------------------|
+| 1 | `aria-label` | Gives screen readers a name for elements with no visible text | A name badge on an unlabeled door so visitors know what's inside |
+| 2 | `@media (max-width:)` | Applies CSS rules only below a specified screen width | A thermostat that turns on the AC only when temperature exceeds a limit |
+| 3 | `@media print` | Applies CSS rules only when the page is being printed | A "formal dress code" that activates only at an interview |
+| 4 | `:focus-visible` | Styles elements focused via keyboard, not mouse click | A doorbell light that activates only when someone rings, not walks past |
+| 5 | `::after` | Inserts CSS-generated content after an element | A stamp machine that auto-adds a note after every receipt |
+| 6 | `outline` / `outline-offset` | Draws a visible ring around focused elements at a set distance | A glow around the keyboard-selected button on a remote control |
+| 7 | `overflow-wrap` | Forces long unbreakable words to wrap within their container | A long banner that folds to fit the notice board instead of sticking out |
+| 8 | `break-inside: avoid` | Prevents an element from splitting across printed pages | Telling the printer "keep this whole card on one page" |
+| 9 | `content` (CSS property) | Generates text via CSS without editing the HTML | An invisible label maker that auto-prints notes onto the page |
+| 10 | `loading="lazy"` | Delays loading images/iframes until user scrolls near them | A restaurant that cooks your dish only when you sit at your table |
+| 11 | `<iframe>` | Embeds another webpage (YouTube, Maps) inside your page | A TV mounted in your wall showing a live channel from elsewhere |
+| 12 | `<frameset>` / `<frame>` ⚠️ | Split the browser into panels — **deprecated** since HTML5 | Splitting a TV into 4 screens at once — confusing and now obsolete |
+| 13 | `allowfullscreen` | Permits iframe content to enter fullscreen mode | A permission slip letting the embedded video take over your whole screen |
+| 14 | `rel="noopener noreferrer"` | Secures external links opened in new tabs from page hijacking | Locking the back door before letting a stranger into your house |
+
 ---
 
 ## 📋 The Ultimate Testing Checklist
@@ -141,6 +162,8 @@ Bootstrap uses these breakpoints. We test at each one:
 }
 ```
 
+> 📌 **First Time Seeing `overflow-wrap`?** This CSS property tells the browser: "If a word is too long to fit, break it and wrap to the next line." `word-wrap` is the older name for the same effect, and `word-break` is a stricter variant that can break words anywhere. Using all three ensures maximum browser compatibility.
+
 > 💡 **Analogy:** It's like a long train that doesn't fit in the station — you tell it to "break" into smaller coaches that fit.
 
 ### Issue 2: Images Not Scaling
@@ -181,6 +204,8 @@ Bootstrap uses these breakpoints. We test at each one:
     #backToTop { width: 36px; height: 36px; font-size: 14px; bottom: 15px; right: 15px; }
 }
 ```
+
+> 📌 **First Time Seeing `@media`?** A **media query** is a CSS rule that only activates when a condition is true. `@media (max-width: 576px)` means "apply these styles only when the screen is 576px wide or narrower." This is how one CSS file adapts to phones, tablets, AND desktops — without separate stylesheets.
 
 ### Issue 5: Font Sizes Too Large on Mobile
 
@@ -278,6 +303,8 @@ Press `Tab` repeatedly from the top of the page. You must be able to reach: ever
 *:focus-visible { outline: 2px solid #0d6efd; outline-offset: 2px; }
 ```
 
+> 📌 **First Time Seeing `:focus-visible`?** The `:focus` pseudo-class matches ANY focused element (keyboard or mouse click). `:focus-visible` is smarter — it only matches when the browser determines the focus should be **visible** (typically keyboard navigation). The `outline` property draws a ring around the element, and `outline-offset` adds spacing between the ring and the element's edge.
+
 ### Fix 6: Semantic HTML — Ensure Correct Structure
 
 Your page should use `<nav>`, `<main>` (wrapping all sections), `<section>`, and `<footer>` — NOT generic `<div>`s for layout. If you haven't wrapped your sections in `<main>`, add it now! Screen readers use it to skip directly to content.
@@ -327,6 +354,8 @@ Categories: **Performance** (page load speed), **Accessibility** (usability for 
 <img src="faculty1.jpg" class="img-fluid" alt="Dr. Rajesh" loading="lazy">
 ```
 
+> 📌 **First Time Seeing `loading="lazy"`?** This HTML attribute tells the browser: "Don't download this image until the user scrolls close to it." It speeds up the initial page load by skipping off-screen images. Use it on images **below the fold** — never on the hero carousel (users see that immediately!).
+
 **SEO** — Add to `<head>` if missing:
 ```html
 <meta name="description" content="Official class website for BCA Batch 2025-26, Mandsaur University.">
@@ -336,6 +365,8 @@ Categories: **Performance** (page load speed), **Accessibility** (usability for 
 ```html
 <a href="https://example.com" target="_blank" rel="noopener noreferrer">External Link</a>
 ```
+
+> 📌 **First Time Seeing `rel="noopener noreferrer"`?** The `rel` attribute defines the **relationship** between your page and the linked page. `noopener` prevents the new tab from accessing your page's `window.opener` object (a security vulnerability). `noreferrer` stops the browser from sending the Referer header. Always use both on `target="_blank"` links.
 
 ---
 
@@ -380,6 +411,8 @@ In the early web (1990s), developers used **frames** to divide a browser window 
 </frameset>
 ```
 
+> 📌 **First Time Seeing `<frameset>`?** The `rows` attribute splits the browser window into horizontal panels, and `cols` splits it into vertical panels. Each `<frame>` loads a separate HTML file via `src`, and its `name` attribute lets links target that specific frame. **All deprecated since HTML5** — shown here only for exam knowledge!
+
 ### Why Frames Were Deprecated
 
 | Problem | Explanation |
@@ -415,6 +448,8 @@ In the early web (1990s), developers used **frames** to divide a browser window 
         title="Mandsaur University location" width="600" height="450"
         style="border:0;" allowfullscreen loading="lazy"></iframe>
 ```
+
+> 📌 **First Time Seeing `allowfullscreen`?** This attribute gives the embedded content permission to go fullscreen when the user clicks the fullscreen button inside the iframe. The `title` attribute on `<iframe>` is **essential for accessibility** — screen readers announce it so users know what the embed contains before entering it.
 
 > ⚠️ **For exams:** `<frameset>` and `<frame>` are **deprecated**. `<iframe>` is **NOT deprecated**. Know the difference!
 
@@ -585,6 +620,110 @@ Before moving to the next session, verify:
 | Add `rel="noopener"` to external links | Best Practices |
 | Ensure color contrast 4.5:1 | Accessibility |
 
+### HTML Tags Used in This Session
+
+| Tag | Type | What It Does |
+|-----|------|-------------|
+| `<iframe>` | Embedding | Embeds another webpage — YouTube, Google Maps |
+| `<frameset>` ⚠️ | Deprecated | Divided browser into panels — removed in HTML5 |
+| `<frame>` ⚠️ | Deprecated | Single panel inside a frameset — removed in HTML5 |
+| `<img>` | Void element | Displays an image (from Session 2) |
+| `<div>` | Container | Generic block-level container (from Session 1) |
+| `<table>` | Table | Creates a data table (from Session 5) |
+| `<button>` | Interactive | Clickable button element (from Session 2) |
+| `<span>` | Inline | Generic inline container (from Session 3) |
+| `<label>` | Form | Text label linked to an input field (from Session 7) |
+| `<input>` | Form | User input field — text, email, etc. (from Session 7) |
+| `<meta>` | Metadata | Page metadata in `<head>` — description, viewport (from Session 1) |
+| `<a>` | Inline | Hyperlink / anchor element (from Session 1) |
+| `<main>` | Semantic | Main content area — screen readers skip nav to reach it (from Session 2) |
+| `<nav>` | Semantic | Navigation section (from Session 3) |
+| `<section>` | Semantic | Thematic grouping of content (from Session 2) |
+| `<footer>` | Semantic | Footer area of page or section (from Session 2) |
+| `<body>` | Structure | Contains all visible page content (from Session 1) |
+| `<head>` | Structure | Contains metadata, links, and scripts (from Session 1) |
+| `<html>` | Root | Root element of the page (from Session 1) |
+| `<h1>` – `<h3>` | Heading | Section headings in hierarchical order (from Session 1) |
+| `<ul>` / `<li>` | List | Unordered list and list items (from Session 1) |
+
+### Bootstrap Classes Used in This Session
+
+| Class | Type | What It Does |
+|-------|------|-------------|
+| `img-fluid` | Responsive | Scales image to fit its container width (from Session 3) |
+| `table-responsive` | Responsive | Adds horizontal scroll on small screens (from Session 5) |
+| `table` | Component | Applies Bootstrap table styling (from Session 5) |
+| `table-striped` | Modifier | Alternating row background colors (from Session 5) |
+| `table-hover` | Modifier | Highlights rows on mouse hover (from Session 5) |
+| `navbar-toggler` | Component | Hamburger button for mobile navbar (from Session 3) |
+| `navbar-toggler-icon` | Component | The ☰ icon inside the toggler button (from Session 3) |
+| `form-label` | Form | Styles a `<label>` for Bootstrap forms (from Session 7) |
+| `form-control` | Form | Styles an `<input>` as a Bootstrap form field (from Session 7) |
+| `btn` | Component | Base class for all Bootstrap buttons (from Session 2) |
+| `card` | Component | Bootstrap card container (from Session 6) |
+| `carousel-control-prev` | Component | Previous arrow on a carousel (from Session 4) |
+| `carousel-control-next` | Component | Next arrow on a carousel (from Session 4) |
+| `back-to-top` | Custom | Custom class for the back-to-top button (from Session 11) |
+
+### HTML Attributes Used in This Session
+
+| Attribute | Used On | What It Does |
+|-----------|---------|-------------|
+| `aria-label` | `<button>`, `<a>` | Accessible name for elements with no visible text |
+| `aria-expanded` | Toggle buttons | Tells screen readers if a section is open or closed |
+| `aria-hidden` | Decorative elements | Hides element from screen readers |
+| `role` | Any element | Overrides the element's default semantic role |
+| `tabindex` | Any element | Controls keyboard Tab order (`0` = natural, `-1` = skip) |
+| `loading` | `<img>`, `<iframe>` | `"lazy"` delays loading until element scrolls into view |
+| `allowfullscreen` | `<iframe>` | Permits the embed to enter fullscreen mode |
+| `rel` | `<a>` | Relationship to linked page — `noopener noreferrer` for security |
+| `title` | `<iframe>` | Descriptive label for accessibility — screen readers announce it |
+| `rows` | `<frameset>` ⚠️ | Defines horizontal panel splits — deprecated |
+| `cols` | `<frameset>` ⚠️ | Defines vertical panel splits — deprecated |
+| `alt` | `<img>` | Alternative text for screen readers and broken images (from Session 2) |
+| `for` | `<label>` | Links label to input via matching `id` (from Session 7) |
+| `src` | `<img>`, `<iframe>`, `<frame>` | URL of the resource to load (from Session 1) |
+| `href` | `<a>` | URL the link points to (from Session 1) |
+| `target` | `<a>` | Where to open the link — `_blank` = new tab (from Session 7) |
+| `id` | Any element | Unique identifier for the element (from Session 1) |
+| `class` | Any element | Assigns CSS or Bootstrap classes (from Session 1) |
+| `name` | `<input>`, `<frame>` | Name for form submission or frame reference (from Session 7) |
+| `placeholder` | `<input>` | Hint text shown inside an empty input (from Session 7) |
+| `type` | `<input>` | Specifies input control type — text, email, etc. (from Session 7) |
+| `style` | Any element | Applies inline CSS styles (from Session 1) |
+| `width` / `height` | `<img>`, `<iframe>` | Sets element dimensions in pixels (from Session 2) |
+| `content` | `<meta>` | Value for the metadata tag (from Session 1) |
+| `lang` | `<html>` | Declares the page language for screen readers and SEO (from Session 1) |
+
+### CSS Properties & At-Rules Used in This Session
+
+| Property / Rule | Type | What It Does |
+|----------------|------|-------------|
+| `@media (max-width:)` | At-rule | Applies styles only when screen is narrower than specified width |
+| `@media print` | At-rule | Applies styles only when the page is being printed |
+| `:focus` | Pseudo-class | Matches any focused element — keyboard or mouse |
+| `:focus-visible` | Pseudo-class | Matches elements focused via keyboard only |
+| `::after` | Pseudo-element | Inserts generated content after an element |
+| `outline` | Property | Draws a line around the outside of an element |
+| `outline-offset` | Property | Distance between the outline and the element's border edge |
+| `overflow-wrap` | Property | Allows long unbreakable words to wrap to the next line |
+| `word-wrap` | Property | Legacy name for `overflow-wrap` — same effect |
+| `word-break` | Property | Controls how words break at end of a line |
+| `break-inside` | Property | Controls page/column breaks inside an element (`avoid` = don't split) |
+| `content` | Property | Specifies generated content for `::before` / `::after` |
+| `display` | Property | Controls element rendering — `none` hides it completely (from Session 1) |
+| `position` | Property | Sets positioning method — `absolute`, `fixed`, etc. (from Session 11) |
+| `top` / `left` / `bottom` / `right` | Property | Offset from positioned edge (from Session 11) |
+| `z-index` | Property | Stacking order — higher number appears on top (from Session 11) |
+| `transition` | Property | Animates property changes over a duration (from Session 13) |
+| `font-size` | Property | Sets the size of text (from Session 1) |
+| `width` / `height` | Property | Sets element dimensions (from Session 1) |
+| `padding` | Property | Space inside element between content and border (from Session 1) |
+| `background` | Property | Sets background color or image (from Session 1) |
+| `color` | Property | Sets text color (from Session 1) |
+| `border` | Property | Sets border around an element (from Session 5) |
+| `box-shadow` | Property | Adds shadow effect around an element (from Session 6) |
+
 ---
 
 ## 📝 Key Takeaways
@@ -647,6 +786,8 @@ Screen reader users shouldn't have to Tab through 10 navbar links every time the
 }
 ```
 
+> 📌 **First Time Seeing `.skip-link`?** This is a custom CSS class (not Bootstrap). `position: absolute` with `top: -40px` hides it off-screen. When a keyboard user presses Tab, the `:focus` pseudo-class triggers and `top: 0` slides it into view. `z-index: 9999` (from Session 11) ensures it appears above everything, and `transition` (from Session 13) animates the slide.
+
 > 💡 This link is invisible until a keyboard user presses Tab. It then appears at the top of the page, letting them jump straight to the content.
 
 ### Challenge 3: Add a Print Stylesheet (⭐⭐⭐ Hard)
@@ -666,6 +807,8 @@ When someone prints your website (`Ctrl + P`), it should look clean:
     .card, section { break-inside: avoid; }
 }
 ```
+
+> 📌 **First Time Seeing `@media print`?** While `@media (max-width:)` targets screen sizes, `@media print` applies styles **only when the page is printed** (`Ctrl + P`). Inside it: `display: none` (from Session 1) hides navigation and buttons. The `::after` pseudo-element with `content: " (" attr(href) ")"` auto-appends the link URL after each `<a>` tag — vital since printed pages can't be clicked! `break-inside: avoid` prevents elements from splitting across two pages.
 
 > 💡 Test with `Ctrl + P` — buttons, navigation, and dark mode toggle should disappear in print preview!
 

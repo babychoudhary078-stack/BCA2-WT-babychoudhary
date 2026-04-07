@@ -49,6 +49,20 @@ This is the **label plate** on the photo frame. It MUST go inside `<figure>`, ty
 
 ---
 
+### 📌 Bootstrap `figure`, `figure-img`, and `figure-caption` Classes
+
+While `<figure>` and `<figcaption>` are HTML tags, Bootstrap provides matching **CSS classes** to style them:
+
+| Bootstrap Class | What It Does | Real-World Analogy |
+|-----------------|-------------|-------------------|
+| `figure` | Applies Bootstrap's figure styling (inline-block display, bottom margin) | Telling the frame shop "use your standard frame style" |
+| `figure-img` | Adds responsive sizing and margin-bottom to the image inside a figure | Ensuring the photo fits neatly inside the frame |
+| `figure-caption` | Styles the caption with muted colour and smaller font size | The elegant engraved label plate on the frame |
+
+> **Why add Bootstrap classes on top of HTML tags?** The HTML `<figure>` tag tells the browser the *meaning* (semantic). The Bootstrap `figure` class adds the *styling* (visual). You need both — meaning without styling looks plain, styling without meaning confuses screen readers.
+
+---
+
 ### 📌 `alt` Attribute — Deep Dive
 
 You've used `alt` before, but let's understand WHY it matters:
@@ -218,6 +232,11 @@ modal (the dark overlay behind)
 | `modal-dialog-centered` | Centers vertically on screen |
 | `modal-content` → `modal-header` / `modal-body` / `modal-footer` | The actual content box and its sections |
 | `data-bs-dismiss="modal"` | Clicking this element closes the modal |
+| `modal-title` | Styles the heading text inside `modal-header` |
+| `btn-close` | Bootstrap's built-in close button — renders an X icon with no visible text |
+| `btn-close-white` | White variant of `btn-close` for use on dark backgrounds |
+| `fade` | Adds fade-in/fade-out animation (used alongside `modal`) |
+| `aria-labelledby` | Accessibility — links the modal to its title element by ID |
 
 ### How to Trigger a Modal
 
@@ -379,6 +398,24 @@ openLightbox('event.jpg', 'Annual Day');
 
 ---
 
+## 🎨 Bootstrap Utility Classes Used in This Session
+
+These utility classes appear in our gallery and modal code. Some are new, some are from earlier sessions:
+
+| Class | What It Does | New? |
+|-------|-------------|------|
+| `m-0` | Removes all margin (`margin: 0`) | ✅ New |
+| `p-0` | Removes all padding (`padding: 0`) | ✅ New |
+| `me-auto` | Adds `margin-right: auto` — pushes siblings to the right | ✅ New |
+| `text-white` | Sets text colour to white | ✅ New |
+| `border-secondary` | Adds a grey (secondary theme colour) border | ✅ New |
+| `btn-secondary` | Grey secondary-coloured button | ✅ New |
+| `btn-close` | Bootstrap's X close button — no visible text needed | ✅ New |
+
+> 📌 **Spacing shorthand refresher:** Bootstrap spacing utilities follow the pattern `{property}{side}-{size}`. `m` = margin, `p` = padding. Sides: `t`(top), `b`(bottom), `s`(start/left), `e`(end/right), `x`(horizontal), `y`(vertical), blank = all. Sizes: `0` to `5`, plus `auto`. So `m-0` = margin all sides zero, `me-auto` = margin-end auto, `p-0` = padding all sides zero.
+
+---
+
 ## 🔨 Let's Build! Step by Step
 
 ### Step 1: Add the Gallery Section
@@ -511,6 +548,12 @@ Add this after the timetable section in your `index.html`:
 
 > 📌 **Notice:** Each image has `class="gallery-img"` — we'll use this class in JavaScript to select all gallery images at once. Each also has `data-bs-toggle="modal"` and `data-bs-target="#galleryModal"` so Bootstrap knows to open the modal on click.
 
+> 📌 **First Time Seeing `figure` and `figure-caption` as classes?** These are Bootstrap classes (not just HTML tags). The `figure` class on `<figure>` adjusts display and margin. The `figure-caption` class on `<figcaption>` applies muted colour and smaller font. Without these classes, your figure would use plain browser defaults.
+
+> 📌 **First Time Seeing `m-0`?** This removes all default margin. We use it on `<figure>` because Bootstrap's `figure` class adds a bottom margin that would create unwanted gaps in our tight gallery grid.
+
+> 📌 **First Time Seeing `style="cursor: pointer;"`?** The CSS property `cursor: pointer` changes the mouse cursor to a hand icon when hovering — telling users "this is clickable." We use an inline `style` attribute here because this is a one-off visual hint, not a reusable style.
+
 ---
 
 ### Step 2: Add the Lightbox Modal
@@ -552,6 +595,18 @@ Add this HTML **after** the gallery section (but before the closing `</body>` ta
 ```
 
 **Why dark background?** Photos look best on a dark background — just like in a real gallery or a cinema hall. That's why we use `bg-dark text-white` on `modal-content` and `btn-close-white` for the close button.
+
+> 📌 **First Time Seeing `text-white`?** Sets all text inside the element to white. We pair it with `bg-dark` so light text is readable on the dark modal background.
+
+> 📌 **First Time Seeing `border-secondary`?** Adds a grey (secondary theme colour) border. We use it on `modal-header` and `modal-footer` so the divider lines are subtle against the dark background, instead of the default light border.
+
+> 📌 **First Time Seeing `btn-close` and `btn-close-white`?** `btn-close` is Bootstrap's ready-made close button — it renders an X icon with no visible text (screen readers use `aria-label="Close"`). `btn-close-white` switches the icon to white for dark backgrounds.
+
+> 📌 **First Time Seeing `p-0`?** Removes all padding. We use it on `modal-body` so the image fills edge to edge with no gap — like a photo printed right to the border of its frame.
+
+> 📌 **First Time Seeing `me-auto`?** Adds `margin-right: auto`, which pushes everything after it to the far right. Here it pushes the Close button to the right while the image URL text stays on the left. Compare with `ms-auto` (Session 1) which pushes to the left.
+
+> 📌 **First Time Seeing `btn-secondary`?** A grey-coloured button for secondary actions (like "Close" or "Cancel"). In the template example above, it's used for the close button. In our actual build we use `btn-outline-light` instead for the dark-themed modal.
 
 ---
 
@@ -652,6 +707,47 @@ Open your page in Chrome and check:
 | | `this` inside event listener | The element that fired the event |
 | | `function name(param1, param2)` | Reusable function with parameters |
 | | `el.textContent = 'text'` | Set text of an element |
+| **Bootstrap (new)** | `figure` | Bootstrap figure styling on `<figure>` element |
+| | `figure-caption` | Muted, smaller text for figure captions |
+| | `figure-img` | Responsive sizing for image inside a figure |
+| | `modal-title` | Styles heading text inside `modal-header` |
+| | `btn-close` | Bootstrap's built-in X close button |
+| | `btn-close-white` | White variant of `btn-close` for dark backgrounds |
+| | `fade` | Fade-in/fade-out animation for modal |
+| | `btn-secondary` | Grey secondary-coloured button |
+| | `text-white` | Sets text colour to white |
+| | `border-secondary` | Grey (secondary) border colour |
+| | `m-0` | Removes all margin |
+| | `p-0` | Removes all padding |
+| | `me-auto` | Auto right margin — pushes siblings right |
+| **Bootstrap (previous)** | `container` | Fixed-width centred wrapper (from Session 1) |
+| | `row` | Flex container for grid columns (from Session 3) |
+| | `col-6` | 6 of 12 columns = 50% width (explained above) |
+| | `col-md-4` | 4 of 12 columns at ≥768px (from Session 3) |
+| | `col-lg-3` | 3 of 12 columns at ≥992px (from Session 3) |
+| | `py-5` | Vertical padding level 5 (from Session 2) |
+| | `bg-light` | Light grey background (from Session 3) |
+| | `bg-dark` | Dark background (from Session 1) |
+| | `text-center` | Centre-align text (from Session 3) |
+| | `text-muted` | Muted grey text colour (from Session 3) |
+| | `fw-bold` | Bold font weight (from Session 1) |
+| | `mb-3` / `mb-4` | Bottom margin levels 3–4 (from Sessions 3, 5) |
+| | `btn` | Base button class (from Session 2) |
+| | `btn-outline-primary` | Outlined primary button (from Session 4) |
+| | `btn-outline-light` | Outlined light button (from Session 2) |
+| | `btn-sm` | Small button size (from Session 5) |
+| | `active` | Active/selected state (from Session 1) |
+| | `w-100` | Width 100% (from Session 2) |
+| | `rounded` | Rounded corners (explained above) |
+| **Attributes (new)** | `aria-labelledby` | Links element to its label by ID (accessibility) |
+| | `aria-label` | Provides accessible name for elements without visible text |
+| | `poster` | Thumbnail image shown before video plays |
+| | `controls` | Shows play/pause/volume controls on media elements |
+| **CSS Properties** | `cursor: pointer` | Changes mouse cursor to hand icon (clickable hint) |
+| | `transition` | Animates CSS changes smoothly over time |
+| | `transform: scale()` | Enlarges/shrinks element visually |
+| | `box-shadow` | Adds shadow effect around an element |
+| | `display: none/block` | Hides/shows elements (used in JS filtering) |
 
 ---
 
@@ -732,6 +828,12 @@ Add a CSS hover effect that slightly zooms the image when you mouse over it:
 ```
 
 This is pure CSS — no JavaScript needed! The `transition` makes the zoom smooth, and `transform: scale(1.05)` enlarges the image by 5%.
+
+> 📌 **First Time Seeing `transition`?** The CSS `transition` property animates changes smoothly over a duration. `transition: transform 0.3s ease` means "when the `transform` value changes, animate it over 0.3 seconds with an ease curve." Without `transition`, the zoom would snap instantly.
+
+> 📌 **First Time Seeing `transform`?** The CSS `transform` property applies visual transformations — `scale()` enlarges/shrinks, `rotate()` spins, `translateX()` shifts horizontally. Here `scale(1.05)` means 105% of original size (a subtle 5% zoom).
+
+> 📌 **First Time Seeing `box-shadow`?** Adds a shadow effect around an element. The syntax is `box-shadow: x-offset y-offset blur-radius colour`. Here `0 4px 15px rgba(0,0,0,0.3)` creates a soft shadow below and around the image, giving it a "lifted" feel on hover.
 
 ---
 
